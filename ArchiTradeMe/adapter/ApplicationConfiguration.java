@@ -1,4 +1,4 @@
-package run_app;
+package adapter;
 
 import adapter.out.PersistanceAdapter;
 import application.port.in.UseCases.InscriptionUseCase;
