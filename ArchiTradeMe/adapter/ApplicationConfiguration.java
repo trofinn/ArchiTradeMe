@@ -1,12 +1,12 @@
 package adapter;
 
 import adapter.out.PersistanceAdapter;
+import application.port.in.UseCases.AfficheConsultantUseCase;
 import application.port.in.UseCases.InscriptionUseCase;
 import application.port.in.UseCases.RenseignementsUseCase;
+import application.services.AfficheConsultantsService;
 import application.services.InscriptionService;
 import application.services.RenseignementsService;
-import kernel.BusFactory;
-import kernel.CommandBus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,11 +18,6 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public CommandBus commandBus() {
-        return BusFactory.defaultCommandBus();
-    }
-
-    @Bean
     public InscriptionUseCase inscriptionUseCase() {
         return new InscriptionService(persistanceAdapter());
     }
@@ -31,4 +26,7 @@ public class ApplicationConfiguration {
     public RenseignementsUseCase renseignementsUseCase() {
         return new RenseignementsService(persistanceAdapter());
     }
+
+    @Bean
+    public AfficheConsultantUseCase afficheConsultantsUseCase() { return new AfficheConsultantsService(persistanceAdapter());}
 }

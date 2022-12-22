@@ -1,10 +1,8 @@
 package application.port.in.DTOs;
 
-import kernel.Command;
-
 import javax.validation.constraints.NotNull;
 
-public class InscriptionCommand implements Command {
+public class InscriptionCommand {
     @NotNull
     private final String email;
     @NotNull

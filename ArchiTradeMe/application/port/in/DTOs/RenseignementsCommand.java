@@ -3,12 +3,11 @@ package application.port.in.DTOs;
 import domain.Competence;
 import domain.Consultant;
 import domain.Modalite;
-import kernel.Command;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-public class RenseignementsCommand implements Command {
+public class RenseignementsCommand {
 
     @NotNull
     private final Consultant consultant;
@@ -33,11 +32,6 @@ public class RenseignementsCommand implements Command {
     public RenseignementsCommand(Consultant consultant, Modalite modalite) {
         this.consultant = consultant;
         this.modalite = modalite;
-    }
-
-
-    public Consultant get_consultant() {
-        return consultant;
     }
 
     public Consultant getConsultant() {

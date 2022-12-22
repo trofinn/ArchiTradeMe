@@ -1,13 +1,14 @@
 package domain;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Consultant {
 
-    private final String email;
-    private final String nom;
-    private final String prenom;
+    private  String email;
+    private String nom;
+    private String prenom;
     private ArrayList<Competence> competences = new ArrayList<Competence>();
     private int TJM;
     private ArrayList<LocalDateTime> disponibilites = new ArrayList<LocalDateTime>();
@@ -19,6 +20,8 @@ public class Consultant {
         this.nom = nom;
         this.prenom = prenom;
     }
+
+    public Consultant() {}
 
     public Consultant add_competence(Competence competence) {
         competences.add(competence);

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public interface Repository {
     void save(Consultant consultant);
-    Consultant load(String nom, String prenom);
+    Consultant load(String email);
     ArrayList<Consultant> findAll();
+    void update(Consultant consultant);
 }

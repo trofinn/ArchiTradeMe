@@ -13,7 +13,7 @@ public class InscriptionService implements InscriptionUseCase {
     }
 
     @Override
-    public Consultant handle(InscriptionCommand inscriptionCommand) {
+    public Consultant inscription(InscriptionCommand inscriptionCommand) {
         Consultant consultant = new Consultant(inscriptionCommand.getEmail(),inscriptionCommand.getNom(),inscriptionCommand.getPrenom());
         repository.save(consultant);
         return consultant;

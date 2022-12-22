@@ -15,12 +15,20 @@ public class PersistanceAdapter implements Repository {
     }
 
     @Override
-    public Consultant load(String nom, String prenom) {
-        return null;
+    public Consultant load(String email) {
+        return registry.computeIfAbsent(email,
+                key -> {
+            throw new RuntimeException("not found");
+        });
     }
 
     @Override
     public ArrayList<Consultant> findAll() {
         return new ArrayList<Consultant>(registry.values());
+    }
+
+    @Override
+    public void update(Consultant consultant) {
+        registry.computeIfPresent(consultant.getEmail(), (key,val) -> consultant);
     }
 }

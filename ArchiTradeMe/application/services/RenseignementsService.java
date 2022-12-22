@@ -13,14 +13,14 @@ public class RenseignementsService implements RenseignementsUseCase {
         this.repository = repository;
     }
 
+
     @Override
-    public Consultant handle(RenseignementsCommand renseignementsCommand) {
-       Consultant consultant = renseignementsCommand.getConsultant().add_competence(renseignementsCommand.getCompetence());
-       repository.save(consultant);
-       return consultant;
+    public Consultant add_competence(RenseignementsCommand renseignementsCommand) {
+        Consultant consultant = renseignementsCommand.getConsultant().add_competence(renseignementsCommand.getCompetence());
+        repository.save(consultant);
+        return consultant;
     }
 
-    /*
     @Override
     public Consultant delete_competence(RenseignementsCommand renseignementsCommand) {
         Consultant consultant = renseignementsCommand.getConsultant().delete_competence(renseignementsCommand.getCompetence());
@@ -51,5 +51,5 @@ public class RenseignementsService implements RenseignementsUseCase {
     @Override
     public Consultant set_TJM(RenseignementsCommand renseignementsCommand) {
         return null;
-    }*/
+    }
 }
