@@ -29,4 +29,5 @@ public class ApplicationConfiguration {
 
     @Bean
     public AfficheConsultantUseCase afficheConsultantsUseCase() { return new AfficheConsultantsService(persistanceAdapter());}
+
 }

@@ -3,7 +3,10 @@ package application.services;
 import application.port.in.DTOs.RenseignementsCommand;
 import application.port.in.UseCases.RenseignementsUseCase;
 import application.port.out.Repository;
+import domain.Competence;
 import domain.Consultant;
+
+import java.util.ArrayList;
 
 public class RenseignementsService implements RenseignementsUseCase {
 
@@ -30,7 +33,9 @@ public class RenseignementsService implements RenseignementsUseCase {
 
     @Override
     public Consultant add_dispo(RenseignementsCommand renseignementsCommand) {
-        return null;
+        Consultant consultant = renseignementsCommand.getConsultant().add_dispo(renseignementsCommand.getDisponibilite());
+        repository.save(consultant);
+        return consultant;
     }
 
     @Override
@@ -40,7 +45,9 @@ public class RenseignementsService implements RenseignementsUseCase {
 
     @Override
     public Consultant add_modalite(RenseignementsCommand renseignementsCommand) {
-        return null;
+        Consultant consultant = renseignementsCommand.getConsultant().add_modalite(renseignementsCommand.getModalite());
+        repository.save(consultant);
+        return consultant;
     }
 
     @Override

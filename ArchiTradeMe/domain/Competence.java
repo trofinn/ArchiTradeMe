@@ -1,17 +1,16 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Competence {
 
-    private final String val;
+    @JsonProperty
+    private String val;
 
     public Competence(String val) {
         this.val = val;
     }
 
-    @Override
-    public String toString() {
-        return "Competence{" +
-                "val='" + val + '\'' +
-                '}';
-    }
+    Competence() {}
+
 }

@@ -1,6 +1,7 @@
 package domain;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -9,9 +10,13 @@ public class Consultant {
     private  String email;
     private String nom;
     private String prenom;
+    @JsonProperty("competences")
     private ArrayList<Competence> competences = new ArrayList<Competence>();
+    @JsonProperty("TJM")
     private int TJM;
+    @JsonProperty("disponibilites")
     private ArrayList<LocalDateTime> disponibilites = new ArrayList<LocalDateTime>();
+    @JsonProperty("modalites")
     private ArrayList<Modalite> modalites = new ArrayList<Modalite>();
 
 
@@ -37,16 +42,18 @@ public class Consultant {
         this.TJM = value;
     }
 
-    public void add_dispo(LocalDateTime date) {
+    public Consultant add_dispo(LocalDateTime date) {
         disponibilites.add(date);
+        return this;
     }
 
     public void delete_dispo(LocalDateTime date) {
         disponibilites.remove(date);
     }
 
-    public void add_modalite(Modalite modalite) {
+    public Consultant add_modalite(Modalite modalite) {
         modalites.add(modalite);
+        return this;
     }
 
     public void delete_modalite(Modalite modalite) {
