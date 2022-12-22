@@ -1,5 +1,6 @@
 package adapter.in;
 
+import adapter.out.PersistanceAdapter;
 import application.port.in.DTOs.AfficheConsultantCommand;
 import application.port.in.DTOs.InscriptionCommand;
 import application.port.in.DTOs.RenseignementsCommand;
@@ -11,17 +12,20 @@ import domain.Consultant;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @RestController
 public class WebController {
     private final InscriptionUseCase inscriptionUseCase;
     private final RenseignementsUseCase renseignementsUseCase;
     private final AfficheConsultantUseCase afficheConsultantUseCase;
+    private final PersistanceAdapter persistanceAdapter;
 
-    public WebController(InscriptionUseCase inscriptionUseCase, RenseignementsUseCase renseignementsUseCase, AfficheConsultantUseCase afficheConsultantUseCase) {
+    public WebController(InscriptionUseCase inscriptionUseCase, RenseignementsUseCase renseignementsUseCase, AfficheConsultantUseCase afficheConsultantUseCase, PersistanceAdapter persistanceAdapter) {
         this.inscriptionUseCase = inscriptionUseCase;
         this.renseignementsUseCase = renseignementsUseCase;
         this.afficheConsultantUseCase = afficheConsultantUseCase;
+        this.persistanceAdapter = persistanceAdapter;
     }
 
     @PostMapping("/consultants")
@@ -40,6 +44,13 @@ public class WebController {
     public Consultant add_competence(@PathVariable String email, @RequestBody Competence competence) {
         Consultant consultant = afficheConsultantUseCase.recherche_consultant(new AfficheConsultantCommand(email));
         return renseignementsUseCase.add_competence(new RenseignementsCommand(consultant,competence));
+        // curl -X PUT localhost:8080/consultants/trofin2@gmail.com/competences/ -H 'Content-type:application/json' -d '{"val": "C++"}'
+    }
+
+    @GetMapping("/consultants")
+    public ArrayList<Consultant> affiche_tous() {
+        return persistanceAdapter.findAll();
+        // curl -v localhost:8080/consultants
     }
 
 }
