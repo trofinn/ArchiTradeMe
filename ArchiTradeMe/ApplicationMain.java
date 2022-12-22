@@ -1,8 +1,5 @@
 import adapter.in.Controller;
 import adapter.out.PersistanceAdapter;
-import application.port.in.DTOs.AfficheConsultantCommand;
-import application.port.in.DTOs.InscriptionCommand;
-import application.port.in.DTOs.RenseignementsCommand;
 import application.port.in.UseCases.AfficheConsultantUseCase;
 import application.port.in.UseCases.InscriptionUseCase;
 import application.port.in.UseCases.RenseignementsUseCase;
