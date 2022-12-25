@@ -34,7 +34,8 @@ public class Controller {
         return afficheConsultantUseCase.recherche_consultant(new AfficheConsultantCommand(email));
     }
 
-    public Consultant delete_competence(Consultant consultant, Competence competence) {
+    public Consultant delete_competence(String email, Competence competence) {
+        Consultant consultant = afficheConsultantUseCase.recherche_consultant(new AfficheConsultantCommand(email));
         return renseignementsUseCase.delete_competence(new RenseignementsCommand(consultant,competence));
     }
 }

@@ -27,7 +27,7 @@ public class ApplicationMain {
 
         System.out.println(consultant);
         System.out.println("aaaaaaaaaa\n"+controller.affiche_consultant("test@gmail.com"));
-        controller.delete_competence(consultant,competence);
+        controller.delete_competence("test@gmail.com",competence);
         System.out.println(persistanceAdapter.findAll());
 
     }

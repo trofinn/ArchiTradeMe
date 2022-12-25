@@ -40,7 +40,9 @@ public class RenseignementsService implements RenseignementsUseCase {
 
     @Override
     public Consultant delete_dispo(RenseignementsCommand renseignementsCommand) {
-        return null;
+        Consultant consultant = renseignementsCommand.getConsultant().delete_dispo(renseignementsCommand.getDisponibilite());
+        repository.save(consultant);
+        return consultant;
     }
 
     @Override
@@ -52,11 +54,16 @@ public class RenseignementsService implements RenseignementsUseCase {
 
     @Override
     public Consultant delete_modalite(RenseignementsCommand renseignementsCommand) {
-        return null;
+        Consultant consultant = renseignementsCommand.getConsultant().delete_modalite(renseignementsCommand.getModalite());
+        repository.save(consultant);
+        return consultant;
+
     }
 
     @Override
     public Consultant set_TJM(RenseignementsCommand renseignementsCommand) {
-        return null;
+        Consultant consultant = renseignementsCommand.getConsultant().set_TJM(renseignementsCommand.getTJM());
+        repository.save(consultant);
+        return consultant;
     }
 }

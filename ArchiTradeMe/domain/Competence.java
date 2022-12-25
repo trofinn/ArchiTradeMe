@@ -13,4 +13,10 @@ public class Competence {
 
     Competence() {}
 
+    @Override
+    public String toString() {
+        return "Competence{" +
+                "val='" + val + '\'' +
+                '}';
+    }
 }

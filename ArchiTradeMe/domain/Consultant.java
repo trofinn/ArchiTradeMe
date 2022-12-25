@@ -7,17 +7,20 @@ import java.util.ArrayList;
 
 public class Consultant {
 
-    private  String email;
+    @JsonProperty
+    private String email;
+    @JsonProperty
     private String nom;
+    @JsonProperty
     private String prenom;
     @JsonProperty("competences")
-    private ArrayList<Competence> competences = new ArrayList<Competence>();
+    private ArrayList<Competence> competences = new ArrayList<>();
     @JsonProperty("TJM")
-    private int TJM;
+    private String TJM;
     @JsonProperty("disponibilites")
-    private ArrayList<LocalDateTime> disponibilites = new ArrayList<LocalDateTime>();
+    private ArrayList<LocalDateTime> disponibilites = new ArrayList<>();
     @JsonProperty("modalites")
-    private ArrayList<Modalite> modalites = new ArrayList<Modalite>();
+    private ArrayList<Modalite> modalites = new ArrayList<>();
 
 
     public Consultant(String email, String nom, String prenom) {
@@ -38,8 +41,9 @@ public class Consultant {
         return this;
     }
 
-    public void set_TJM(int value) {
+    public Consultant set_TJM(String value) {
         this.TJM = value;
+        return this;
     }
 
     public Consultant add_dispo(LocalDateTime date) {
@@ -47,8 +51,9 @@ public class Consultant {
         return this;
     }
 
-    public void delete_dispo(LocalDateTime date) {
+    public Consultant delete_dispo(LocalDateTime date) {
         disponibilites.remove(date);
+        return this;
     }
 
     public Consultant add_modalite(Modalite modalite) {
@@ -56,8 +61,9 @@ public class Consultant {
         return this;
     }
 
-    public void delete_modalite(Modalite modalite) {
+    public Consultant delete_modalite(Modalite modalite) {
         modalites.remove(modalite);
+        return this;
     }
 
     public String getEmail() {
