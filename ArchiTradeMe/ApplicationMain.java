@@ -4,17 +4,20 @@ import application.port.in.UseCases.AfficheConsultantUseCase;
 import application.port.in.UseCases.InscriptionUseCase;
 import application.port.in.UseCases.RenseignementsUseCase;
 import application.services.AfficheConsultantsService;
-import application.services.InscriptionService;
+import application.services.InscriptionConsultantService;
 import application.services.RenseignementsService;
 import domain.Competence;
 import domain.Consultant;
+import kernel.DefaultEventDispatcher;
+import kernel.EventDispatcher;
 
 public class ApplicationMain {
 
     public static void main(String[] args) {
 
         PersistanceAdapter persistanceAdapter = new PersistanceAdapter();
-        InscriptionUseCase inscriptionUseCase = new InscriptionService(persistanceAdapter);
+        EventDispatcher eventDispatcher = DefaultEventDispatcher.create();
+        InscriptionUseCase inscriptionUseCase = new InscriptionConsultantService(persistanceAdapter, eventDispatcher);
         RenseignementsUseCase renseignementsUseCase = new RenseignementsService(persistanceAdapter);
         AfficheConsultantUseCase afficheConsultantUseCase = new AfficheConsultantsService(persistanceAdapter);
         Controller controller = new Controller(inscriptionUseCase,renseignementsUseCase,afficheConsultantUseCase);

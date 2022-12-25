@@ -1,10 +1,13 @@
 package adapter;
 
+import adapter.out.LogNotification;
 import adapter.out.PersistanceAdapter;
 import application.port.in.UseCases.*;
 import application.services.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import kernel.DefaultEventDispatcher;
+import kernel.EventDispatcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -17,8 +20,13 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    public EventDispatcher eventDispatcher() {
+        return DefaultEventDispatcher.create();
+    }
+
+    @Bean
     public InscriptionUseCase inscriptionUseCase() {
-        return new InscriptionService(persistanceAdapter());
+        return new InscriptionConsultantService(persistanceAdapter(), eventDispatcher());
     }
 
     @Bean
@@ -46,4 +54,12 @@ public class ApplicationConfiguration {
 
     @Bean
     public AfficheClientUseCase afficheClientUseCase() { return new AfficheClientService(persistanceAdapter());}
+
+    @Bean
+    public LogNotification notifications() {
+        return new LogNotification();
+    }
+
+    @Bean
+    public ConsultantAccountCreatedEventHandler consultantAccountCreatedEventHandler() { return new ConsultantAccountCreatedEventHandler(notifications());}
 }

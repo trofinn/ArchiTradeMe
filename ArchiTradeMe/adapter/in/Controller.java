@@ -1,7 +1,7 @@
 package adapter.in;
 
 import application.port.in.DTOs.AfficheConsultantCommand;
-import application.port.in.DTOs.InscriptionCommand;
+import application.port.in.DTOs.InscriptionConsultantCommand;
 import application.port.in.DTOs.RenseignementsCommand;
 import application.port.in.UseCases.AfficheConsultantUseCase;
 import application.port.in.UseCases.InscriptionUseCase;
@@ -23,7 +23,7 @@ public class Controller {
 
 
     public Consultant inscription(String email, String nom, String prenom) {
-        return inscriptionUseCase.inscription(new InscriptionCommand(email,nom,prenom));
+        return inscriptionUseCase.inscription(new InscriptionConsultantCommand(email,nom,prenom));
     }
 
     public Consultant add_competence(Consultant consultant, Competence competence) {

@@ -2,7 +2,7 @@ package application.port.in.DTOs;
 
 import javax.validation.constraints.NotNull;
 
-public class InscriptionCommand {
+public class InscriptionConsultantCommand {
     @NotNull
     private final String email;
     @NotNull
@@ -10,7 +10,7 @@ public class InscriptionCommand {
     @NotNull
     private final String prenom;
 
-    public InscriptionCommand(String email, String nom, String prenom) {
+    public InscriptionConsultantCommand(String email, String nom, String prenom) {
         this.email = email;
         this.nom = nom;
         this.prenom = prenom;

@@ -36,7 +36,7 @@ public class WebController {
 
     @PostMapping("/consultants")
     public Consultant inscription(@RequestBody @Valid Consultant consultant) {
-        return inscriptionUseCase.inscription(new InscriptionCommand(consultant.getEmail(),consultant.getNom(),consultant.getPrenom()));
+        return inscriptionUseCase.inscription(new InscriptionConsultantCommand(consultant.getEmail(),consultant.getNom(),consultant.getPrenom()));
         //curl -X POST localhost:8080/consultants -H 'Content-type:application/json' -d '{"email": "trofin2@gmail.com", "nom": "trofin", "prenom": "nicu"}'
     }
 
