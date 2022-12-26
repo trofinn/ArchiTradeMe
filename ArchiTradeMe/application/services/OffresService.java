@@ -1,16 +1,21 @@
 package application.services;
 
+import application.events.OffertAddedEvent;
 import application.port.in.DTOs.AjouterOffreCommand;
 import application.port.in.UseCases.AjouterOffreUseCase;
 import application.port.out.Repository;
 import domain.Client;
 import domain.Offre;
+import kernel.Event;
+import kernel.EventDispatcher;
 
 public class OffresService implements AjouterOffreUseCase {
     private final Repository repository;
+    private final EventDispatcher<? super Event> eventDispatcher;
 
-    public OffresService(Repository repository) {
+    public OffresService(Repository repository, EventDispatcher<? super Event> eventDispatcher) {
         this.repository = repository;
+        this.eventDispatcher = eventDispatcher;
     }
 
 
@@ -22,6 +27,7 @@ public class OffresService implements AjouterOffreUseCase {
 
         Client client = ajouterOffreCommand.client;
         client.add_offre(offre);
+        eventDispatcher.dispatch(new OffertAddedEvent(ajouterOffreCommand.client,ajouterOffreCommand.offre));
         repository.save(client);
         return client;
     }

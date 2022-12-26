@@ -4,6 +4,10 @@ import adapter.out.LogNotification;
 import adapter.out.PersistanceAdapter;
 import application.port.in.UseCases.*;
 import application.services.*;
+import application.services.event_handlers.ClientAccountCreatedEventHandler;
+import application.services.event_handlers.ConsultantAccountCreatedEventHandler;
+import application.services.event_handlers.OffertAddedEventHandler;
+import application.services.event_handlers.RenseignementsAddedEventHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import kernel.DefaultEventDispatcher;
@@ -25,13 +29,13 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public InscriptionUseCase inscriptionUseCase() {
-        return new InscriptionConsultantService(persistanceAdapter(), eventDispatcher());
+    public InscriptionConsultantUseCase inscriptionUseCase() {
+        return new InscriptionConsultantConsultantService(persistanceAdapter(), eventDispatcher());
     }
 
     @Bean
     public RenseignementsUseCase renseignementsUseCase() {
-        return new RenseignementsService(persistanceAdapter());
+        return new RenseignementsService(persistanceAdapter(), eventDispatcher());
     }
 
     @Bean
@@ -45,11 +49,11 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public InscriptionClientUseCase inscriptionClientUseCase() {return new ClientService(persistanceAdapter());
+    public InscriptionClientUseCase inscriptionClientUseCase() {return new InscriptionClientService(persistanceAdapter(), eventDispatcher());
     }
 
     @Bean
-    public AjouterOffreUseCase ajouterOffreUseCase() { return  new OffresService(persistanceAdapter());
+    public AjouterOffreUseCase ajouterOffreUseCase() { return  new OffresService(persistanceAdapter(), eventDispatcher());
     }
 
     @Bean
@@ -62,4 +66,14 @@ public class ApplicationConfiguration {
 
     @Bean
     public ConsultantAccountCreatedEventHandler consultantAccountCreatedEventHandler() { return new ConsultantAccountCreatedEventHandler(notifications());}
+
+    @Bean
+    public ClientAccountCreatedEventHandler clientAccountCreatedEventHandler() { return new ClientAccountCreatedEventHandler(notifications());}
+
+    @Bean
+    public OffertAddedEventHandler offertAddedEventHandler() { return new OffertAddedEventHandler(notifications());}
+
+    @Bean
+    public RenseignementsAddedEventHandler renseignementsAddedEventHandler() { return new RenseignementsAddedEventHandler(notifications());}
+
 }

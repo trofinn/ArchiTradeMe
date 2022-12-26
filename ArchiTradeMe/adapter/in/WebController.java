@@ -16,7 +16,7 @@ import java.util.ArrayList;
 @RestController
 public class WebController {
 
-    private final InscriptionUseCase inscriptionUseCase;
+    private final InscriptionConsultantUseCase inscriptionConsultantUseCase;
     private final RenseignementsUseCase renseignementsUseCase;
     private final AfficheConsultantUseCase afficheConsultantUseCase;
     private final InscriptionClientUseCase inscriptionClientUseCase;
@@ -24,8 +24,8 @@ public class WebController {
     private final AfficheClientUseCase afficheClientUseCase;
     private final PersistanceAdapter persistanceAdapter;
 
-    public WebController(InscriptionUseCase inscriptionUseCase, RenseignementsUseCase renseignementsUseCase, AfficheConsultantUseCase afficheConsultantUseCase, InscriptionClientUseCase inscriptionClientUseCase, AjouterOffreUseCase ajouterOffreUseCase, AfficheClientUseCase afficheClientUseCase, PersistanceAdapter persistanceAdapter) {
-        this.inscriptionUseCase = inscriptionUseCase;
+    public WebController(InscriptionConsultantUseCase inscriptionConsultantUseCase, RenseignementsUseCase renseignementsUseCase, AfficheConsultantUseCase afficheConsultantUseCase, InscriptionClientUseCase inscriptionClientUseCase, AjouterOffreUseCase ajouterOffreUseCase, AfficheClientUseCase afficheClientUseCase, PersistanceAdapter persistanceAdapter) {
+        this.inscriptionConsultantUseCase = inscriptionConsultantUseCase;
         this.renseignementsUseCase = renseignementsUseCase;
         this.afficheConsultantUseCase = afficheConsultantUseCase;
         this.inscriptionClientUseCase = inscriptionClientUseCase;
@@ -36,7 +36,7 @@ public class WebController {
 
     @PostMapping("/consultants")
     public Consultant inscription(@RequestBody @Valid Consultant consultant) {
-        return inscriptionUseCase.inscription(new InscriptionConsultantCommand(consultant.getEmail(),consultant.getNom(),consultant.getPrenom()));
+        return inscriptionConsultantUseCase.inscription(new InscriptionConsultantCommand(consultant.getEmail(),consultant.getNom(),consultant.getPrenom()));
         //curl -X POST localhost:8080/consultants -H 'Content-type:application/json' -d '{"email": "trofin2@gmail.com", "nom": "trofin", "prenom": "nicu"}'
     }
 

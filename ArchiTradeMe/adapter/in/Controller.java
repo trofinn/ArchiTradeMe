@@ -4,26 +4,26 @@ import application.port.in.DTOs.AfficheConsultantCommand;
 import application.port.in.DTOs.InscriptionConsultantCommand;
 import application.port.in.DTOs.RenseignementsCommand;
 import application.port.in.UseCases.AfficheConsultantUseCase;
-import application.port.in.UseCases.InscriptionUseCase;
+import application.port.in.UseCases.InscriptionConsultantUseCase;
 import application.port.in.UseCases.RenseignementsUseCase;
 import domain.Competence;
 import domain.Consultant;
 
 
 public class Controller {
-    private final InscriptionUseCase inscriptionUseCase;
+    private final InscriptionConsultantUseCase inscriptionConsultantUseCase;
     private final RenseignementsUseCase renseignementsUseCase;
     private final AfficheConsultantUseCase afficheConsultantUseCase;
 
-    public Controller(InscriptionUseCase inscriptionUseCase, RenseignementsUseCase renseignementsUseCase, AfficheConsultantUseCase afficheConsultantUseCase) {
-        this.inscriptionUseCase = inscriptionUseCase;
+    public Controller(InscriptionConsultantUseCase inscriptionConsultantUseCase, RenseignementsUseCase renseignementsUseCase, AfficheConsultantUseCase afficheConsultantUseCase) {
+        this.inscriptionConsultantUseCase = inscriptionConsultantUseCase;
         this.renseignementsUseCase = renseignementsUseCase;
         this.afficheConsultantUseCase = afficheConsultantUseCase;
     }
 
 
     public Consultant inscription(String email, String nom, String prenom) {
-        return inscriptionUseCase.inscription(new InscriptionConsultantCommand(email,nom,prenom));
+        return inscriptionConsultantUseCase.inscription(new InscriptionConsultantCommand(email,nom,prenom));
     }
 
     public Consultant add_competence(Consultant consultant, Competence competence) {

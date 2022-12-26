@@ -1,10 +1,10 @@
 import adapter.in.Controller;
 import adapter.out.PersistanceAdapter;
 import application.port.in.UseCases.AfficheConsultantUseCase;
-import application.port.in.UseCases.InscriptionUseCase;
+import application.port.in.UseCases.InscriptionConsultantUseCase;
 import application.port.in.UseCases.RenseignementsUseCase;
 import application.services.AfficheConsultantsService;
-import application.services.InscriptionConsultantService;
+import application.services.InscriptionConsultantConsultantService;
 import application.services.RenseignementsService;
 import domain.Competence;
 import domain.Consultant;
@@ -17,10 +17,10 @@ public class ApplicationMain {
 
         PersistanceAdapter persistanceAdapter = new PersistanceAdapter();
         EventDispatcher eventDispatcher = DefaultEventDispatcher.create();
-        InscriptionUseCase inscriptionUseCase = new InscriptionConsultantService(persistanceAdapter, eventDispatcher);
-        RenseignementsUseCase renseignementsUseCase = new RenseignementsService(persistanceAdapter);
+        InscriptionConsultantUseCase inscriptionConsultantUseCase = new InscriptionConsultantConsultantService(persistanceAdapter, eventDispatcher);
+        RenseignementsUseCase renseignementsUseCase = new RenseignementsService(persistanceAdapter, eventDispatcher);
         AfficheConsultantUseCase afficheConsultantUseCase = new AfficheConsultantsService(persistanceAdapter);
-        Controller controller = new Controller(inscriptionUseCase,renseignementsUseCase,afficheConsultantUseCase);
+        Controller controller = new Controller(inscriptionConsultantUseCase,renseignementsUseCase,afficheConsultantUseCase);
 
         Consultant consultant = controller.inscription("test@gmail.com","trofin","nicu");
         System.out.println(consultant);

@@ -1,4 +1,4 @@
-package application.services;
+package application.services.event_handlers;
 
 import application.events.ConsultantAccountCreatedEvent;
 import application.port.out.Notification;
