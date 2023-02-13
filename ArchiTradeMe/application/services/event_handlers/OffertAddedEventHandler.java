@@ -15,6 +15,6 @@ public class OffertAddedEventHandler implements EventHandler<OffertAddedEvent> {
 
     @Override
     public void handle(OffertAddedEvent event) {
-        notifications.notify(String.format("Notification of new added/deleted offert %s from the client %s",event.getOffre(),event.getClient().getEmail()));
+        notifications.notify(String.format("Notification of new added offert %s from the client %s",event.getOffre(),event.getClient().getEmail()));
     }
 }

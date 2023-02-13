@@ -1,6 +1,7 @@
 package application.services.renseignements_services;
 
-import application.events.Renseignements.RenseignementsAddedEvent;
+import application.events.Renseignements.ModaliteDeletedEvent;
+import application.events.Renseignements.TJMUpdatedEvent;
 import application.port.in.DTOs.RenseignementsCommand;
 import application.port.in.UseCases.RenseignementsUseCases.DeleteModaliteUseCase;
 import application.port.out.Repository;
@@ -21,7 +22,7 @@ public class DeleteModaliteService implements DeleteModaliteUseCase {
     public Consultant delete_modalite(RenseignementsCommand renseignementsCommand) {
         Consultant consultant = renseignementsCommand.getConsultant().delete_modalite(renseignementsCommand.getModalite());
         repository.save(consultant);
-        eventDispatcher.dispatch(new RenseignementsAddedEvent(consultant,renseignementsCommand.getModalite()));
+        eventDispatcher.dispatch(new ModaliteDeletedEvent(consultant,renseignementsCommand.getModalite()));
         return consultant;
 
     }

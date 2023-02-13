@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ConsultantDto {
     @JsonProperty
@@ -40,41 +41,6 @@ public class ConsultantDto {
     }
 
     public ConsultantDto() {}
-
-    public ConsultantDto add_competence(CompetenceDto competence) {
-        competences.add(competence);
-        return this;
-    }
-
-    public ConsultantDto delete_competence(CompetenceDto competence) {
-        competences.remove(competence);
-        return this;
-    }
-
-    public ConsultantDto set_TJM(String value) {
-        this.TJM = value;
-        return this;
-    }
-
-    public ConsultantDto add_dispo(LocalDateTime date) {
-        disponibilites.add(date);
-        return this;
-    }
-
-    public ConsultantDto delete_dispo(LocalDateTime date) {
-        disponibilites.remove(date);
-        return this;
-    }
-
-    public ConsultantDto add_modalite(ModaliteDto modalite) {
-        modalites.add(modalite);
-        return this;
-    }
-
-    public ConsultantDto delete_modalite(ModaliteDto modalite) {
-        modalites.remove(modalite);
-        return this;
-    }
 
     public String getEmail() {
         return email;
@@ -115,5 +81,18 @@ public class ConsultantDto {
                 ", disponibilites=" + disponibilites +
                 ", modalites=" + modalites +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ConsultantDto that = (ConsultantDto) o;
+        return Objects.equals(email, that.email) && Objects.equals(nom, that.nom) && Objects.equals(prenom, that.prenom) && Objects.equals(competences, that.competences) && Objects.equals(TJM, that.TJM) && Objects.equals(disponibilites, that.disponibilites) && Objects.equals(modalites, that.modalites);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, nom, prenom, competences, TJM, disponibilites, modalites);
     }
 }

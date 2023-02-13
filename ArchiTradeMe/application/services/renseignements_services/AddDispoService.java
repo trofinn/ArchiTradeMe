@@ -1,6 +1,7 @@
 package application.services.renseignements_services;
 
-import application.events.Renseignements.RenseignementsAddedEvent;
+import application.events.Renseignements.DispoAddedEvent;
+import application.events.Renseignements.TJMUpdatedEvent;
 import application.port.in.DTOs.RenseignementsCommand;
 import application.port.in.UseCases.RenseignementsUseCases.AddDispoUseCase;
 import application.port.out.Repository;
@@ -20,7 +21,7 @@ public class AddDispoService implements AddDispoUseCase {
     @Override
     public Consultant add_dispo(RenseignementsCommand renseignementsCommand) {
         Consultant consultant = renseignementsCommand.getConsultant().add_dispo(renseignementsCommand.getDisponibilite());
-        eventDispatcher.dispatch(new RenseignementsAddedEvent(consultant,renseignementsCommand.getDisponibilite()));
+        eventDispatcher.dispatch(new DispoAddedEvent(consultant,renseignementsCommand.getDisponibilite()));
         repository.save(consultant);
         return consultant;
     }

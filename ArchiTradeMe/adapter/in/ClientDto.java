@@ -3,6 +3,7 @@ package adapter.in;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ClientDto {
     @JsonProperty
@@ -54,5 +55,18 @@ public class ClientDto {
                 ", prenom='" + prenom + '\'' +
                 ", offres=" + offres +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClientDto clientDto = (ClientDto) o;
+        return Objects.equals(email_contact, clientDto.email_contact) && Objects.equals(nom, clientDto.nom) && Objects.equals(prenom, clientDto.prenom) && Objects.equals(offres, clientDto.offres);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email_contact, nom, prenom, offres);
     }
 }

@@ -4,7 +4,7 @@ import adapter.out.PersistanceAdapter;
 import application.events.ClientAccountCreatedEvent;
 import application.events.ConsultantAccountCreatedEvent;
 import application.events.OffertAddedEvent;
-import application.events.Renseignements.RenseignementsAddedEvent;
+import application.events.Renseignements.*;
 import application.port.in.UseCases.AfficheConsultantUseCase;
 import application.port.in.UseCases.InscriptionConsultantUseCase;
 import application.services.event_handlers.ClientAccountCreatedEventHandler;
@@ -64,12 +64,12 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
         eventDispatcher.register(ConsultantAccountCreatedEvent.class, consultantAccountCreatedEventHandler);
         eventDispatcher.register(ClientAccountCreatedEvent.class, clientAccountCreatedEventHandler);
         eventDispatcher.register(OffertAddedEvent.class, offertAddedEventHandler);
-        eventDispatcher.register(RenseignementsAddedEvent.class, competenceAddedEventHandler);
-        eventDispatcher.register(RenseignementsAddedEvent.class, competenceDeletedEventHandler);
-        eventDispatcher.register(RenseignementsAddedEvent.class, dispoAddedEventHandler);
-        eventDispatcher.register(RenseignementsAddedEvent.class, dispoDeletedEventHandler);
-        eventDispatcher.register(RenseignementsAddedEvent.class, modaliteAddedEventHandler);
-        eventDispatcher.register(RenseignementsAddedEvent.class, modaliteDeletedEventHandler);
-        eventDispatcher.register(RenseignementsAddedEvent.class, tjmUpdatedEventHandler);
+        eventDispatcher.register(CompetenceAddedEvent.class, competenceAddedEventHandler);
+        eventDispatcher.register(CompetenceDeletedEvent.class, competenceDeletedEventHandler);
+        eventDispatcher.register(DispoAddedEvent.class, dispoAddedEventHandler);
+        eventDispatcher.register(DispoDeletedEvent.class, dispoDeletedEventHandler);
+        eventDispatcher.register(ModaliteAddedEvent.class, modaliteAddedEventHandler);
+        eventDispatcher.register(ModaliteDeletedEvent.class, modaliteDeletedEventHandler);
+        eventDispatcher.register(TJMUpdatedEvent.class, tjmUpdatedEventHandler);
     }
 }

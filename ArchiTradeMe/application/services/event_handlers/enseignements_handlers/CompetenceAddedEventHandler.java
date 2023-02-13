@@ -1,10 +1,10 @@
 package application.services.event_handlers.enseignements_handlers;
 
-import application.events.Renseignements.RenseignementsAddedEvent;
+import application.events.Renseignements.CompetenceAddedEvent;
 import application.port.out.Notification;
 import kernel.EventHandler;
 
-public class CompetenceAddedEventHandler implements EventHandler<RenseignementsAddedEvent> {
+public class CompetenceAddedEventHandler implements EventHandler<CompetenceAddedEvent> {
 
     private final Notification notifications;
 
@@ -14,7 +14,7 @@ public class CompetenceAddedEventHandler implements EventHandler<RenseignementsA
 
 
     @Override
-    public void handle(RenseignementsAddedEvent event) {
+    public void handle(CompetenceAddedEvent event) {
         notifications.notify(String.format("Notification of new added competence %s of the consultant %s",event.getCompetence(), event.getConsultant()));
     }
 }

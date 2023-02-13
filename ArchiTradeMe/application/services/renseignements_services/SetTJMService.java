@@ -1,6 +1,6 @@
 package application.services.renseignements_services;
 
-import application.events.Renseignements.RenseignementsAddedEvent;
+import application.events.Renseignements.TJMUpdatedEvent;
 import application.port.in.DTOs.RenseignementsCommand;
 import application.port.in.UseCases.RenseignementsUseCases.SetTJMUseCase;
 import application.port.out.Repository;
@@ -23,7 +23,7 @@ public class SetTJMService implements SetTJMUseCase {
     public Consultant set_TJM(RenseignementsCommand renseignementsCommand) {
         Consultant consultant = renseignementsCommand.getConsultant().set_TJM(renseignementsCommand.getTJM());
         repository.save(consultant);
-        eventDispatcher.dispatch(new RenseignementsAddedEvent(consultant,renseignementsCommand.getTJM()));
+        eventDispatcher.dispatch(new TJMUpdatedEvent(consultant,renseignementsCommand.getTJM()));
         return consultant;
     }
 }

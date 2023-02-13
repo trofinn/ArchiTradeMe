@@ -1,6 +1,6 @@
 package application.services.renseignements_services;
 
-import application.events.Renseignements.RenseignementsAddedEvent;
+import application.events.Renseignements.CompetenceAddedEvent;
 import application.port.in.DTOs.RenseignementsCommand;
 import application.port.in.UseCases.RenseignementsUseCases.AddCompetenceUseCase;
 import application.port.out.Repository;
@@ -21,7 +21,7 @@ public class AddCompetenceService implements AddCompetenceUseCase {
     public Consultant add_competence(RenseignementsCommand renseignementsCommand) {
         Consultant consultant = renseignementsCommand.getConsultant().add_competence(renseignementsCommand.getCompetence());
         repository.save(consultant);
-        eventDispatcher.dispatch(new RenseignementsAddedEvent(consultant,renseignementsCommand.getCompetence()));
+        eventDispatcher.dispatch(new CompetenceAddedEvent(consultant,renseignementsCommand.getCompetence()));
         return consultant;
     }
 }

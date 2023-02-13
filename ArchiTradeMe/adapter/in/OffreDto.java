@@ -3,6 +3,7 @@ package adapter.in;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class OffreDto {
     @JsonProperty
@@ -65,5 +66,18 @@ public class OffreDto {
 
     public String getDuration() {
         return duration;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OffreDto offreDto = (OffreDto) o;
+        return Objects.equals(id, offreDto.id) && Objects.equals(TJM, offreDto.TJM) && Objects.equals(comeptences_necessaires, offreDto.comeptences_necessaires) && Objects.equals(modalites, offreDto.modalites) && Objects.equals(date_debut, offreDto.date_debut) && Objects.equals(duration, offreDto.duration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, TJM, comeptences_necessaires, modalites, date_debut, duration);
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Consultant {
 
@@ -109,5 +110,18 @@ public class Consultant {
                 ", disponibilites=" + disponibilites +
                 ", modalites=" + modalites +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Consultant that = (Consultant) o;
+        return Objects.equals(email, that.email) && Objects.equals(nom, that.nom) && Objects.equals(prenom, that.prenom) && Objects.equals(competences, that.competences) && Objects.equals(TJM, that.TJM) && Objects.equals(disponibilites, that.disponibilites) && Objects.equals(modalites, that.modalites);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, nom, prenom, competences, TJM, disponibilites, modalites);
     }
 }

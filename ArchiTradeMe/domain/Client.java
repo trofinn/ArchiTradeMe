@@ -2,6 +2,7 @@ package domain;
 
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Client {
 
@@ -55,5 +56,18 @@ public class Client {
                 ", prenom='" + prenom + '\'' +
                 ", offres=" + offres +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return Objects.equals(email_contact, client.email_contact) && Objects.equals(nom, client.nom) && Objects.equals(prenom, client.prenom) && Objects.equals(offres, client.offres);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email_contact, nom, prenom, offres);
     }
 }

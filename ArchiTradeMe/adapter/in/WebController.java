@@ -9,12 +9,17 @@ import application.port.in.DTOs.*;
 import application.port.in.UseCases.*;
 import application.port.in.UseCases.RenseignementsUseCases.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import domain.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -59,14 +64,12 @@ public class WebController {
     public ConsultantDto inscription(@RequestBody @Valid InscriptionConsultantRequest consultant) {
         Consultant consultant1 =  inscriptionConsultantUseCase.inscription(new InscriptionConsultantCommand(consultant.email,consultant.nom,consultant.prenom));
         return ConsultantDtoMapper.toDto(consultant1);
-        //curl -X POST localhost:8080/consultants -H 'Content-type:application/json' -d '{"email": "trofin2@gmail.com", "nom": "trofin", "prenom": "nicu"}'
     }
 
     @GetMapping("/consultants/{email}")
     public ConsultantDto affiche_consultant(@PathVariable String email) {
         Consultant consultant = afficheConsultantUseCase.recherche_consultant(new AfficheConsultantCommand(email));
         return ConsultantDtoMapper.toDto(consultant);
-        //curl -v localhost:8080/consultants/trofin2@gmail.com
     }
 
     @PutMapping("/consultants/{email}/add/competence")
@@ -75,7 +78,6 @@ public class WebController {
         Consultant consultant = afficheConsultantUseCase.recherche_consultant(new AfficheConsultantCommand(email));
         addCompetenceUseCase.add_competence(new RenseignementsCommand(consultant, CompetenceDtoMapper.toDomain(competence)));
         return ConsultantDtoMapper.toDto(consultant);
-        // curl -X PUT localhost:8080/consultants/trofin2@gmail.com/add/competence/ -H 'Content-type:application/json' -d '{"val": "C++"}'
     }
 
     @GetMapping("/consultants")
@@ -86,7 +88,6 @@ public class WebController {
             list_return.add(ConsultantDtoMapper.toDto(i));
         }
         return list_return;
-        // curl -v localhost:8080/consultants
     }
 
     @PutMapping("/consultants/{email}/delete/competence")
@@ -94,7 +95,6 @@ public class WebController {
         Consultant consultant = afficheConsultantUseCase.recherche_consultant(new AfficheConsultantCommand(email));
         deleteCompetenceUseCase.delete_competence(new RenseignementsCommand(consultant,CompetenceDtoMapper.toDomain(competence)));
         return ConsultantDtoMapper.toDto(consultant);
-        // curl -X PUT localhost:8080/consultants/trofin2@gmail.com/delete/competence/ -H 'Content-type:application/json' -d '{"val" : "C++"}'
     }
 
     @PutMapping("/consultants/{email}/add/modalite")
@@ -102,7 +102,6 @@ public class WebController {
         Consultant consultant = afficheConsultantUseCase.recherche_consultant(new AfficheConsultantCommand(email));
         addModaliteUseCase.add_modalite(new RenseignementsCommand(consultant,Modalite.valueOf(modalite.name())));
         return ConsultantDtoMapper.toDto(consultant);
-        // curl -X PUT localhost:8080/consultants/trofin2@gmail.com/add/modalite -H 'Content-type:application/json' -d '"Presenciel"'
     }
 
     @PutMapping("/consultants/{email}/delete/modalite")
@@ -110,7 +109,6 @@ public class WebController {
         Consultant consultant = afficheConsultantUseCase.recherche_consultant(new AfficheConsultantCommand(email));
         deleteModaliteUseCase.delete_modalite(new RenseignementsCommand(consultant,Modalite.valueOf(modalite.name())));
         return ConsultantDtoMapper.toDto(consultant);
-        // curl -X PUT localhost:8080/consultants/trofin2@gmail.com/delete/modalite -H 'Content-type:application/json' -d '"Presenciel"'
     }
 
     @PutMapping("/consultants/{email}/TJM")
@@ -118,7 +116,6 @@ public class WebController {
         Consultant consultant = afficheConsultantUseCase.recherche_consultant(new AfficheConsultantCommand(email));
         setTJMUseCase.set_TJM(new RenseignementsCommand(consultant,TJM));
         return ConsultantDtoMapper.toDto(consultant);
-        // curl -X PUT localhost:8080/consultants/trofin2@gmail.com/TJM -H 'Content-type:application/json' -d '{"TJM": "300"}'
     }
 
 
@@ -128,21 +125,26 @@ public class WebController {
         Consultant consultant = afficheConsultantUseCase.recherche_consultant(new AfficheConsultantCommand(email));
         addDispoUseCase.add_dispo(new RenseignementsCommand(consultant,date));
         return ConsultantDtoMapper.toDto(consultant);
-        // curl -X PUT localhost:8080/consultants/trofin2@gmail.com/add/dispo -H 'Content-type:application/json' -d '{""}'
+    }
+
+    @PutMapping("/consultants/{email}/delete/dispo")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    public ConsultantDto delete_dispo(@RequestBody @Valid @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")@JsonDeserialize(using = ParseDeserializer.class) LocalDateTime date, @PathVariable String email) {
+        Consultant consultant = afficheConsultantUseCase.recherche_consultant(new AfficheConsultantCommand(email));
+        deleteDispoUseCase.delete_dispo(new RenseignementsCommand(consultant,date));
+        return ConsultantDtoMapper.toDto(consultant);
     }
 
     @PostMapping("/inscription/client")
     public ClientDto inscription(@RequestBody @Valid InscriptionClientRequest client) {
         Client client1 = inscriptionClientUseCase.inscription(new InscriptionClientCommand(client.getEmail_contact(), client.getNom(), client.getPrenom()));
         return ClientDtoMapper.toDto(client1);
-        //curl -X POST localhost:8080/inscription/client -H 'Content-type:application/json' -d '{"email_contact": "trofin2@gmail.com", "nom": "trofin", "prenom": "nicu"}'
     }
 
     @GetMapping("/clients/{email}")
     public ClientDto affiche_client(@PathVariable String email) {
         Client client = afficheClientUseCase.affiche_client(new AfficheClientCommand(email));
         return ClientDtoMapper.toDto(client);
-        //curl -v localhost:8080/clients/trofin2@gmail.com
     }
 
 
@@ -152,16 +154,15 @@ public class WebController {
         ajouterOffreUseCase.ajouter_offre(new AjouterOffreCommand(client, OffreDtoMapper.toDomain(offre)));
         return ClientDtoMapper.toDto(client);
     }
-    /*
-    curl -X PUT localhost:8080/client/trofin2@gmail.com/add_offre -H 'Content-type:application/json' -d '{
-  "id" : "123",
-  "TJM" : "100",
-  "comeptences_necessaires" : [ {
-    "val" : "C++"
-  } ],
-  "modalites" : [ "Presenciel" ],
-  "date_debut" : "lundi",
-  "duration" : "10"
-}'
-     */
+}
+
+class ParseDeserializer extends StdDeserializer<LocalDateTime> {
+    public ParseDeserializer() {
+        super(LocalDateTime.class);
+    }
+
+    @Override
+    public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        return LocalDateTime.parse(jsonParser.getValueAsString()); // or overloaded with an appropriate format
+    }
 }

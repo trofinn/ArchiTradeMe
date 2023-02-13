@@ -1,10 +1,10 @@
 package application.services.event_handlers.enseignements_handlers;
 
-import application.events.Renseignements.RenseignementsAddedEvent;
+import application.events.Renseignements.ModaliteAddedEvent;
 import application.port.out.Notification;
 import kernel.EventHandler;
 
-public class ModaliteAddedEventHandler implements EventHandler<RenseignementsAddedEvent> {
+public class ModaliteAddedEventHandler implements EventHandler<ModaliteAddedEvent> {
 
     private final Notification notifications;
 
@@ -14,7 +14,7 @@ public class ModaliteAddedEventHandler implements EventHandler<RenseignementsAdd
 
 
     @Override
-    public void handle(RenseignementsAddedEvent event) {
+    public void handle(ModaliteAddedEvent event) {
         notifications.notify(String.format("Notification of new added modalité %s of the consultant %s",event.getModalite(), event.getConsultant()));
     }
 }

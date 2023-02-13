@@ -1,6 +1,7 @@
 package application.services.renseignements_services;
 
-import application.events.Renseignements.RenseignementsAddedEvent;
+import application.events.Renseignements.DispoDeletedEvent;
+import application.events.Renseignements.TJMUpdatedEvent;
 import application.port.in.DTOs.RenseignementsCommand;
 import application.port.in.UseCases.RenseignementsUseCases.DeleteDispoUseCase;
 import application.port.out.Repository;
@@ -21,7 +22,7 @@ public class DeleteDispoService implements DeleteDispoUseCase {
     public Consultant delete_dispo(RenseignementsCommand renseignementsCommand) {
         Consultant consultant = renseignementsCommand.getConsultant().delete_dispo(renseignementsCommand.getDisponibilite());
         repository.save(consultant);
-        eventDispatcher.dispatch(new RenseignementsAddedEvent(consultant,renseignementsCommand.getDisponibilite()));
+        eventDispatcher.dispatch(new DispoDeletedEvent(consultant,renseignementsCommand.getDisponibilite()));
         return consultant;
     }
 }

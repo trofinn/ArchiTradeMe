@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Offre {
 
@@ -58,5 +59,18 @@ public class Offre {
 
     public String getDuration() {
         return duration;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Offre offre = (Offre) o;
+        return Objects.equals(id, offre.id) && Objects.equals(TJM, offre.TJM) && Objects.equals(comeptences_necessaires, offre.comeptences_necessaires) && Objects.equals(modalites, offre.modalites) && Objects.equals(date_debut, offre.date_debut) && Objects.equals(duration, offre.duration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, TJM, comeptences_necessaires, modalites, date_debut, duration);
     }
 }
